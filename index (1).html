@@ -1,0 +1,74 @@
+
+<!-- saved from url=(0062)https://unpkg.com/gn-math.github.io-main@1.0.5/autoupdate.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <!--<base href="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/">--><base href="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/">
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/favicon.png">
+    <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/favicon.png">
+    
+    <script async="" src="./gn-math_files/f.txt" crossorigin="anonymous"></script>
+    <script async="" src="./gn-math_files/js"></script>
+    <meta name="google-adsense-account" content="ca-pub-5521219086088837">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+(function () {
+  const TITLE = 'homework';
+
+  function fixTitleAndHeader() {
+    try {
+      document.title = TITLE;
+      const logo = document.querySelector('.logo');
+      if (logo) logo.textContent = TITLE;
+    } catch (e) {}
+  }
+
+  function renameZonesToTeams(root=document) {
+    try {
+      const texts = root.querySelectorAll('h1, h2, h3, button, span, div, a, p');
+      texts.forEach(el => {
+        if (el.children.length === 0 && el.textContent) {
+          el.textContent = el.textContent
+            .replace(/Featured Zones/g, 'Featured Teams')
+            .replace(/All Zones/g, 'All Teams')
+            .replace(/Zones/g, 'Teams')
+            .replace(/zones/g, 'teams');
+        }
+      });
+    } catch (e) {}
+  }
+
+  // Initial run after load
+  window.addEventListener('load', function () {
+    fixTitleAndHeader();
+    renameZonesToTeams(document);
+
+    // Observe future DOM changes (safe, non-blocking)
+    const observer = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        if (m.addedNodes && m.addedNodes.length) {
+          fixTitleAndHeader();
+          renameZonesToTeams(document);
+          break;
+        }
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  });
+})();
+</script>
+
+</body><iframe id="google_esf" name="google_esf" src="./gn-math_files/zrt_lookup_fy2021.html" style="display: none;" bis_size="{&quot;x&quot;:0,&quot;y&quot;:0,&quot;w&quot;:0,&quot;h&quot;:0,&quot;abs_x&quot;:0,&quot;abs_y&quot;:0}" bis_id="fr_72wgfmk1mqhhi1961o6qga" bis_depth="0" bis_chainid="4"></iframe></html>
