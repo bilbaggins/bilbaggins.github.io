@@ -2284,5 +2284,33 @@ HTMLCanvasElement.prototype.toDataURL = function (...args) {
       }
     }, 500);
   });
+</script><script>
+  function renameZonesToTeams() {
+    const replacements = [
+      ["Featured Zones", "Featured Teams"],
+      ["All Zones", "All Teams"],
+      ["Zones", "Teams"],
+      ["zones", "teams"]
+    ];
+
+    document.querySelectorAll("*").forEach(el => {
+      if (el.children.length === 0 && el.textContent) {
+        let text = el.textContent;
+        replacements.forEach(([from, to]) => {
+          text = text.replaceAll(from, to);
+        });
+        el.textContent = text;
+      }
+    });
+
+    const search = document.getElementById("searchBar");
+    if (search) search.placeholder = "Search teams...";
+  }
+
+  window.addEventListener("load", () => {
+    renameZonesToTeams();
+    setTimeout(renameZonesToTeams, 1000); // catch late-loaded text
+  });
 </script>
+
 </body><iframe id="google_esf" name="google_esf" src="./gn-math_files/zrt_lookup_fy2021.html" style="display: none;" bis_size="{&quot;x&quot;:0,&quot;y&quot;:0,&quot;w&quot;:0,&quot;h&quot;:0,&quot;abs_x&quot;:0,&quot;abs_y&quot;:0}" bis_id="fr_72wgfmk1mqhhi1961o6qga" bis_depth="0" bis_chainid="4"></iframe></html>
