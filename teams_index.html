@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>teams</title>
+  <script>
+    document.title = "teams";
+    setInterval(() => document.title = "teams", 300);
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+    header {
+      padding: 1rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .game {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s ease;
+    }
+    .game:hover { transform: scale(1.03); }
+    .game::after {
+      content: "teams";
+      display: block;
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header>teams</header>
+
+  <div class="grid" id="grid"></div>
+
+  <script>
+    // AUTO-LOAD ALL GAMES FROM /games/
+    fetch('games/')
+      .then(() => {
+        // Fallback list if directory listing is disabled
+        const games = [];
+        for (let i = 0; i < 500; i++) games.push(i + '.html');
+
+        const grid = document.getElementById('grid');
+        games.forEach(file => {
+          const div = document.createElement('div');
+          div.className = 'game';
+          div.onclick = () => window.open('games/' + file, '_blank');
+          grid.appendChild(div);
+        });
+      });
+  </script>
+</body>
+</html>
