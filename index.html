@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- FORCE TAB TITLE -->
   <title>teams</title>
@@ -11,22 +11,18 @@
     setInterval(() => document.title = "teams", 300);
   </script>
 
-  <!-- FORCE GN-MATH GAME NAMES TO DISPLAY AS 'teams' -->
+  <!-- VISUAL MASK: FORCE ALL GAME NAMES TO DISPLAY AS 'teams' (SAFE) -->
   <style>
     .zone-item button,
     .zone-item span,
-    #zoneName,
-    summary,
-    h1, h2, h3 {
+    #zoneName {
       color: transparent !important;
       position: relative;
     }
 
     .zone-item button::after,
     .zone-item span::after,
-    #zoneName::after,
-    summary::after,
-    h1::after, h2::after, h3::after {
+    #zoneName::after {
       content: "teams";
       color: white;
       position: absolute;
@@ -35,48 +31,23 @@
       align-items: center;
       justify-content: center;
       font-weight: 600;
+      pointer-events: none;
     }
   </style>
 
-  <!-- REDIRECT ALL GAME SOURCES TO YOUR HOSTED GAMES -->
-  <script>
-    const BASE_GAMES_URL = "https://bilbaggins.github.io/games/";
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
 
-    // override window.open
-    const _open = window.open;
-    window.open = function (url, ...args) {
-      if (typeof url === "string" && url.endsWith(".html")) {
-        const file = url.split('/').pop();
-        return _open(BASE_GAMES_URL + file, ...args);
-      }
-      return _open(url, ...args);
-    };
-
-    // override iframe src
-    const iframeSet = Object.getOwnPropertyDescriptor(HTMLIFrameElement.prototype, 'src').set;
-    Object.defineProperty(HTMLIFrameElement.prototype, 'src', {
-      set(value) {
-        if (typeof value === 'string' && value.endsWith('.html')) {
-          const file = value.split('/').pop();
-          return iframeSet.call(this, BASE_GAMES_URL + file);
-        }
-        return iframeSet.call(this, value);
-      }
-    });
-  </script>
-
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="stylesheet" href="style.css">
-
-  <!-- GN-Math loader -->
+  <!-- LOAD GN-MATH FIRST (DO NOT TOUCH BEFORE THIS) -->
   <script src="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/gnmath.js"></script>
 </head>
 <body class="dark-mode">
+
   <header>
     <div class="header-content">
       <div class="logo">teams</div>
       <div class="search-container">
-        <input type="text" id="searchBar" placeholder="Search zones..." oninput="filterZones()">
+        <input type="text" id="searchBar" placeholder="Search zones..." oninput="filterZones()" />
         <select id="sortOptions" onchange="sortZones()">
           <option value="name">Name</option>
           <option value="id">ID (Date)</option>
@@ -95,11 +66,6 @@
 
   <main>
     <details open>
-      <summary style="font-size:1.2rem;font-weight:bold;">Featured Zones</summary>
-      <div id="featuredZones" class="zone-container"></div>
-    </details>
-    <br><hr><br>
-    <details open>
       <summary style="font-size:1.2rem;font-weight:bold;">All Zones</summary>
       <div id="container">Loading...</div>
     </details>
@@ -109,8 +75,6 @@
     <div class="zone-header">
       <div class="zone-title">
         <h2 id="zoneName">teams</h2>
-        <span id="zoneId" style="display:none;"></span>
-        <a id="zoneAuthor" href="#" target="_blank"></a>
       </div>
       <div class="zone-controls">
         <button onclick="fullscreenZone()">Fullscreen</button>
@@ -122,14 +86,37 @@
     <iframe id="zoneFrame"></iframe>
   </div>
 
-  <footer>
-    <div class="footer-links">
-      <a href="#" onclick="loadDMCA();return false;">DMCA</a>
-      <a href="#" onclick="showContact();return false;">Contact</a>
-      <a href="#" onclick="loadPrivacy();return false;">Privacy Policy</a>
-    </div>
-  </footer>
+  <footer></footer>
 
   <script src="script.js"></script>
+
+  <!-- SAFE REDIRECT OVERRIDE (AFTER GN-MATH LOADS) -->
+  <script>
+    const BASE_GAMES_URL = "https://bilbaggins.github.io/games/";
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const realOpen = window.open;
+      window.open = function (url, ...args) {
+        if (typeof url === "string" && url.endsWith(".html")) {
+          const file = url.split('/').pop();
+          return realOpen(BASE_GAMES_URL + file, ...args);
+        }
+        return realOpen(url, ...args);
+      };
+
+      const desc = Object.getOwnPropertyDescriptor(HTMLIFrameElement.prototype, 'src');
+      if (desc && desc.set) {
+        Object.defineProperty(HTMLIFrameElement.prototype, 'src', {
+          set(value) {
+            if (typeof value === 'string' && value.endsWith('.html')) {
+              const file = value.split('/').pop();
+              return desc.set.call(this, BASE_GAMES_URL + file);
+            }
+            return desc.set.call(this, value);
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
