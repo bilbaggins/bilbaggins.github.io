@@ -2,22 +2,21 @@ const gamesContainer = document.getElementById("games");
 const searchInput = document.getElementById("search");
 const searchBtn = document.getElementById("searchBtn");
 
-// 🔹 DEFINE REAL BASE PATHS
-const COVER_URL = "covers/covers-main";
-const HTML_URL = "games";
+// ✅ ABSOLUTE PATHS (THIS IS THE FIX)
+const COVER_URL = "/covers/covers-main";
+const HTML_URL = "/games";
 
 let allGames = [];
 
-// normalize text for searching
+// normalize for search
 function norm(text) {
   return String(text).toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
 // load zones.json
-fetch("zones.json")
+fetch("/zones.json")
   .then(res => res.json())
   .then(data => {
-    // zones.json is an array of game objects
     allGames = data.map(game => ({
       id: game.id,
       name: game.name,
@@ -56,7 +55,7 @@ function renderGames(list) {
   });
 }
 
-// search logic (uses ORIGINAL names)
+// search logic
 function doSearch() {
   const q = norm(searchInput.value);
 
@@ -73,7 +72,6 @@ function doSearch() {
   renderGames(filtered);
 }
 
-// button + enter key
 searchBtn.addEventListener("click", doSearch);
 searchInput.addEventListener("keydown", e => {
   if (e.key === "Enter") doSearch();
