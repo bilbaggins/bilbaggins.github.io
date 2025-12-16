@@ -75,10 +75,11 @@ function doSearch() {
     return;
   }
 
-  const filtered = allGames.filter(game =>
-    norm(game.originalName).includes(q) ||
-    String(game.id).includes(q)
-  );
+ const filtered = allGames.filter(game =>
+  norm(game.originalName || "").includes(q) ||
+  String(game.id).includes(q)
+);
+
 
   renderGames(filtered);
 }
