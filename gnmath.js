@@ -1,7 +1,7 @@
 const gamesContainer = document.getElementById("games");
 
 // CHANGE THIS NUMBER if you add more games
-const TOTAL_GAMES = 200;
+const TOTAL_GAMES = 800;
 
 for (let i = 0; i < TOTAL_GAMES; i++) {
   const imgPath = `covers/covers-main/${i}.png`;
