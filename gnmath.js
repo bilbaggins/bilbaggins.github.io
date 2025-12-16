@@ -4,37 +4,56 @@ const searchBtn = document.getElementById("searchBtn");
 
 let allGames = [];
 
-// normalize text
+// normalize text for search
 function norm(text) {
-  return text.toLowerCase().replace(/[^a-z0-9]/g, "");
+  return String(text).toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
-// load games from zones.json
+// load zones.json safely
 fetch("zones.json")
   .then(res => res.json())
   .then(data => {
-    allGames = data;
+    // 🔹 HANDLE DIFFERENT GN-MATH FORMATS
+    if (Array.isArray(data)) {
+      allGames = data;
+    } else if (Array.isArray(data.zones)) {
+      allGames = data.zones;
+    } else if (typeof data === "object") {
+      // object-based format
+      allGames = Object.values(data);
+    } else {
+      throw new Error("Unknown zones.json format");
+    }
+
     renderGames(allGames);
   })
-  .catch(() => {
+  .catch(err => {
     gamesContainer.innerHTML = "Failed to load games.";
+    console.error("zones.json error:", err);
   });
 
-// render function
+// render games
 function renderGames(list) {
   gamesContainer.innerHTML = "";
 
   list.forEach(game => {
+    // 🔹 FLEXIBLE PROPERTY NAMES
+    const name = game.name || game.title || game.id || "Game";
+    const path = game.path || game.url || game.link;
+    const cover = game.cover || game.img || "";
+
+    if (!path) return;
+
     const card = document.createElement("div");
     card.className = "game-card";
 
     card.innerHTML = `
-      <img src="${game.cover}" onerror="this.src='covers/covers-main/template.png'">
-      <div class="game-title">${game.name}</div>
+      <img src="${cover}" onerror="this.src='covers/covers-main/template.png'">
+      <div class="game-title">${name}</div>
     `;
 
     card.onclick = () => {
-      const win = window.open(game.path, "_blank");
+      const win = window.open(path, "_blank");
       if (win) {
         win.onload = () => win.document.title = "teams";
       }
@@ -44,7 +63,7 @@ function renderGames(list) {
   });
 }
 
-// search logic
+// search function
 function doSearch() {
   const q = norm(searchInput.value);
 
@@ -54,17 +73,15 @@ function doSearch() {
   }
 
   const filtered = allGames.filter(game =>
-    norm(game.name).includes(q) ||
-    norm(game.path).includes(q)
+    norm(game.name || game.title || "").includes(q) ||
+    norm(game.path || game.url || "").includes(q)
   );
 
   renderGames(filtered);
 }
 
-// button click
+// button + enter
 searchBtn.addEventListener("click", doSearch);
-
-// enter key
 searchInput.addEventListener("keydown", e => {
   if (e.key === "Enter") doSearch();
 });
