@@ -2,20 +2,26 @@ const gamesContainer = document.getElementById("games");
 const searchInput = document.getElementById("search");
 const searchBtn = document.getElementById("searchBtn");
 
-// ✅ ABSOLUTE PATHS (THIS IS THE FIX)
-const COVER_URL = "/covers/covers-main";
-const HTML_URL = "/games";
+// 🔹 AUTO-DETECT BASE PATH (THIS IS THE FIX)
+const BASE = location.pathname.replace(/\/[^/]*$/, "");
+
+// real paths
+const COVER_URL = `${BASE}/covers/covers-main`;
+const HTML_URL = `${BASE}/games`;
 
 let allGames = [];
 
-// normalize for search
+// normalize text
 function norm(text) {
   return String(text).toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
-// load zones.json
-fetch("/zones.json")
-  .then(res => res.json())
+// load zones.json RELATIVELY
+fetch(`${BASE}/zones.json`)
+  .then(res => {
+    if (!res.ok) throw new Error("zones.json not found");
+    return res.json();
+  })
   .then(data => {
     allGames = data.map(game => ({
       id: game.id,
@@ -55,7 +61,7 @@ function renderGames(list) {
   });
 }
 
-// search logic
+// search
 function doSearch() {
   const q = norm(searchInput.value);
 
