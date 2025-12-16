@@ -1,53 +1,26 @@
-// ===== CONFIG =====
-const GAMES_PATH = "games/";
-const COVERS_PATH = "covers/covers-main/";
-const MAX_GAMES = 500;
+const gamesContainer = document.getElementById("games");
 
-// ===== ELEMENT =====
-const container = document.getElementById("games");
+// CHANGE THIS NUMBER if you add more games
+const TOTAL_GAMES = 200;
 
-if (!container) {
-  console.error("Missing #games element in index.html");
-}
+for (let i = 0; i < TOTAL_GAMES; i++) {
+  const imgPath = `covers/covers-main/${i}.png`;
+  const gamePath = `games/${i}.html`;
 
-// ===== LOAD GAMES =====
-async function loadGames() {
-  container.innerHTML = "";
+  const card = document.createElement("div");
+  card.className = "game-card";
 
-  for (let i = 0; i < MAX_GAMES; i++) {
-    const gameUrl = `${GAMES_PATH}${i}.html`;
+  card.innerHTML = `
+    <img src="${imgPath}" onerror="this.src='covers/covers-main/template.png'">
+    <div class="game-title">Game ${i}</div>
+  `;
 
-    try {
-      const res = await fetch(gameUrl, { method: "HEAD" });
-      if (!res.ok) break;
-
-      const card = document.createElement("div");
-      card.className = "game-card";
-
-      const img = document.createElement("img");
-      img.src = `${COVERS_PATH}${i}.png`;
-      img.alt = `Game ${i}`;
-      img.onerror = () => {
-        img.src = `${COVERS_PATH}template.png`;
-      };
-
-      const title = document.createElement("div");
-      title.className = "game-title";
-      title.textContent = "teams";
-
-      card.onclick = () => {
-        window.open(gameUrl, "_blank");
-      };
-
-      card.appendChild(img);
-      card.appendChild(title);
-      container.appendChild(card);
-
-    } catch (e) {
-      break;
+  card.onclick = () => {
+    const win = window.open(gamePath, "_blank");
+    if (win) {
+      win.document.title = "teams";
     }
-  }
-}
+  };
 
-// ===== START =====
-loadGames();
+  gamesContainer.appendChild(card);
+}
