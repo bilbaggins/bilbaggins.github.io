@@ -76,12 +76,13 @@ function doSearch() {
   }
 
   const filtered = allGames.filter(game =>
-    norm(game.name).includes(q) ||
+    norm(game.originalName).includes(q) ||
     String(game.id).includes(q)
   );
 
   renderGames(filtered);
 }
+
 
 searchBtn.addEventListener("click", doSearch);
 searchInput.addEventListener("keydown", e => {
