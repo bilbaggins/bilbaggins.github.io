@@ -2,11 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Homework</title>
-
+  <title>homework</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Minimal safe styling -->
   <style>
     body {
       margin: 0;
@@ -21,26 +19,21 @@
       font-size: 24px;
       font-weight: bold;
     }
-
-    #app {
-      padding: 20px;
-    }
   </style>
 </head>
 <body>
 
   <header>homework</header>
 
-  <div id="app">
-    <p>Loading games…</p>
-  </div>
+  <!-- REQUIRED render target -->
+  <div id="gnmath"></div>
 
-  <!-- Tell gnmath where zones.json is (LOCAL) -->
+  <!-- Tell gnmath where zones.json is -->
   <script>
     window.GNMATH_DATA_URL = "./zones.json";
   </script>
 
-  <!-- Load gnmath LOCALLY (NO CDN, NO BLOCKING) -->
+  <!-- Load gnmath locally -->
   <script src="./gnmath.js"></script>
 
 </body>
