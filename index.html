@@ -50,11 +50,21 @@
   <header>homework</header>
 
   <!-- IMPORTANT: this div MUST exist -->
+<div style="display:flex; gap:8px; padding:10px;">
   <input
-  id="search"
-  type="text"
-  placeholder="Search games..."
-  style="width:100%;padding:10px;font-size:16px;box-sizing:border-box;"
+    id="search"
+    type="text"
+    placeholder="Search games..."
+    style="flex:1; padding:10px; font-size:16px;"
+  >
+  <button
+    id="searchBtn"
+    style="padding:10px 16px; font-size:16px; cursor:pointer;"
+  >
+    Search
+  </button>
+</div>
+
 >
   <div id="games"></div>
 
