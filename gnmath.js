@@ -87,8 +87,19 @@ function doSearch() {
   renderGames(filtered);
 }
 
+searchInput.addEventListener("input", () => {
+  const q = norm(searchInput.value);
 
-searchBtn.addEventListener("click", doSearch);
-searchInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") doSearch();
+  if (!q) {
+    renderGames(allGames);
+    return;
+  }
+
+  const filtered = allGames.filter(game =>
+    game.originalNameNorm.includes(q) ||
+    String(game.id).includes(q)
+  );
+
+  renderGames(filtered);
 });
+
