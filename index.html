@@ -1,54 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>homework</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
       background: #0b1020;
       color: white;
+      font-family: Arial, sans-serif;
     }
 
     header {
-      background: #ff3b6b;
-      padding: 12px 20px;
-      font-size: 22px;
+      background: #ff3b6e;
+      padding: 16px;
+      font-size: 24px;
       font-weight: bold;
     }
 
     #games {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 15px;
-      padding: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 16px;
+      padding: 16px;
     }
 
     .game-card {
-      background: #111633;
-      border-radius: 8px;
+      background: #151a30;
+      border-radius: 10px;
       cursor: pointer;
-      overflow: hidden;
-      transition: transform 0.2s;
-    }
-
-    .game-card:hover {
-      transform: scale(1.05);
+      text-align: center;
+      padding: 10px;
     }
 
     .game-card img {
       width: 100%;
-      height: 120px;
-      object-fit: cover;
-      display: block;
+      border-radius: 8px;
     }
 
     .game-title {
-      padding: 6px;
-      text-align: center;
+      margin-top: 8px;
       font-size: 14px;
     }
   </style>
@@ -57,10 +49,9 @@
 <body>
   <header>homework</header>
 
-  <!-- THIS IS REQUIRED -->
-  <div id="games">Loading games...</div>
+  <!-- IMPORTANT: this div MUST exist -->
+  <div id="games"></div>
 
-  <!-- MUST BE AT BOTTOM -->
   <script src="gnmath.js"></script>
 </body>
 </html>
