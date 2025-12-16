@@ -52,7 +52,7 @@ function renderGames(list) {
 
     card.innerHTML = `
       <img src="${game.cover}" onerror="this.src='${COVER_URL}/template.png'">
-      <div class="game-title">${game.name}</div>
+      <div class="game-title">${game.displayName}</div>
     `;
 
     card.onclick = () => {
