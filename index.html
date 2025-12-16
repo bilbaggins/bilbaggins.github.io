@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>homework</title>
+
+  <!-- IMPORTANT: base must point to the real GN-Math repo -->
+  <base href="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="title" content="homework">
+  <meta name="description" content="Homework portal.">
+
+  <!-- Core styles -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Load the REAL GN-Math logic from CDN -->
+  <script src="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/gnmath.js"></script>
+</head>
+
+<body class="dark-mode">
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <div class="logo">homework</div>
+    </div>
+  </header>
+
+  <!-- Main content containers REQUIRED by gnmath.js -->
+  <main>
+    <div id="zoneCount"></div>
+
+    <details id="featuredZonesWrapper" open>
+      <summary id="allZonesSummary">Featured Zones</summary>
+      <div id="featuredZones"></div>
+    </details>
+
+    <br><hr><br>
+
+    <details id="allZonesWrapper" open>
+      <summary id="allSummary">All Zones</summary>
+      <div id="container"></div>
+    </details>
+  </main>
+
+  <!-- Zone viewer REQUIRED -->
+  <div id="zoneViewer">
+    <div class="zone-header">
+      <div class="zone-title">
+        <h2 id="zoneName"></h2>
+        <span id="zoneAuthor"></span>
+        <span id="zoneId"></span>
+      </div>
+      <div class="zone-controls">
+        <button onclick="closeZone()">Close</button>
+      </div>
+    </div>
+    <iframe id="zoneFrame"></iframe>
+  </div>
+
+</body>
+</html>
