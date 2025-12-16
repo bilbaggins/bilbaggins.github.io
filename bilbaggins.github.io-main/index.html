@@ -2,39 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>homework</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homework</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0b1020;
-      color: #ffffff;
+      font-family: system-ui, sans-serif;
+      background: #0b1220;
+      color: white;
     }
 
     header {
       background: #ff3b6b;
-      padding: 16px;
-      font-size: 24px;
+      padding: 14px 20px;
+      font-size: 22px;
       font-weight: bold;
+    }
+
+    #games {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+      padding: 20px;
+    }
+
+    .game {
+      background: #111a2e;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .game:hover {
+      transform: scale(1.04);
+    }
+
+    .game img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .game span {
+      display: block;
+      padding: 8px;
+      text-align: center;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    #status {
+      padding: 20px;
+      opacity: 0.7;
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>homework</header>
 
-  <!-- REQUIRED render target -->
-  <div id="gnmath"></div>
+  <div id="status">Loading games…</div>
+  <div id="games"></div>
 
-  <!-- Tell gnmath where zones.json is -->
   <script>
-    window.GNMATH_DATA_URL = "./zones.json";
+    const gamesContainer = document.getElementById("games");
+    const status = document.getElementById("status");
+
+    // CHANGE THIS NUMBER if you have more or fewer games
+    const TOTAL_GAMES = 200;
+
+    let loaded = 0;
+
+    for (let i = 0; i < TOTAL_GAMES; i++) {
+      const img = new Image();
+      img.src = `covers/${i}.png`;
+
+      img.onload = () => {
+        const card = document.createElement("div");
+        card.className = "game";
+
+        card.innerHTML = `
+          <img src="covers/${i}.png" alt="Game ${i}">
+          <span>Game ${i}</span>
+        `;
+
+        card.onclick = () => {
+          const w = window.open(`games/${i}.html`, "_blank");
+          if (w) {
+            w.onload = () => {
+              try {
+                w.document.title = "Teams";
+              } catch {}
+            };
+          }
+        };
+
+        gamesContainer.appendChild(card);
+        loaded++;
+        status.textContent = loaded === TOTAL_GAMES
+          ? ""
+          : `Loaded ${loaded}/${TOTAL_GAMES} games…`;
+      };
+    }
   </script>
-
-  <!-- Load gnmath locally -->
-  <script src="./gnmath.js"></script>
-
 </body>
 </html>
