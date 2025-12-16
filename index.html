@@ -1,14 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Homework</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Minimal safe styling -->
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b1020;
+      color: #ffffff;
+    }
+
+    header {
+      background: #ff3b6b;
+      padding: 16px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    #app {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>homework</header>
+
+  <div id="app">
+    <p>Loading games…</p>
+  </div>
+
+  <!-- Tell gnmath where zones.json is (LOCAL) -->
   <script>
     window.GNMATH_DATA_URL = "./zones.json";
   </script>
 
-  <script src="https://gn-math.github.io/gn-math/gnmath.js" defer></script>
-</head>
-<body></body>
+  <!-- Load gnmath LOCALLY (NO CDN, NO BLOCKING) -->
+  <script src="./gnmath.js"></script>
+
+</body>
 </html>
