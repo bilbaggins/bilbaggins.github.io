@@ -1,7 +1,6 @@
 const gamesContainer = document.getElementById("games");
 
-const MAX_SCAN = 1000; // scans up to this number safely
-let found = 0;
+const MAX_SCAN = 1000;
 
 async function loadGames() {
   for (let i = 0; i < MAX_SCAN; i++) {
@@ -10,9 +9,7 @@ async function loadGames() {
 
     try {
       const res = await fetch(gamePath, { method: "HEAD" });
-      if (!res.ok) continue; // skip missing numbers
-
-      found++;
+      if (!res.ok) continue; // skip missing games
 
       const card = document.createElement("div");
       card.className = "game-card";
@@ -32,13 +29,10 @@ async function loadGames() {
       };
 
       gamesContainer.appendChild(card);
-    } catch (e) {
-      continue;
-    }
-  }
 
-  if (found === 0) {
-    gamesContainer.innerHTML = "No games found.";
+    } catch {
+      // ignore
+    }
   }
 }
 
