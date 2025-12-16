@@ -23,7 +23,10 @@ fetch(`${BASE}/zones.json`)
     return res.json();
   })
   .then(data => {
-    allGames = data.map(game => ({
+  const games = Array.isArray(data) ? data : data.zones;
+
+  allGames = games.map(game => ({
+
       id: game.id,
       name: game.name,
       cover: game.cover.replace("{COVER_URL}", COVER_URL),
