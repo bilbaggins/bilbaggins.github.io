@@ -23,10 +23,9 @@ fetch(`${BASE}/zones.json`)
     return res.json();
   })
   .then(data => {
-  const games = Array.isArray(data) ? data : data.zones;
+    const games = Array.isArray(data) ? data : data.zones;
 
-  allGames = games.map(game => ({
-
+    allGames = games.map(game => ({
       id: game.id,
       name: game.name,
       cover: game.cover.replace("{COVER_URL}", COVER_URL),
@@ -39,6 +38,7 @@ fetch(`${BASE}/zones.json`)
     gamesContainer.innerHTML = "Failed to load games.";
     console.error(err);
   });
+
 
 // render games
 function renderGames(list) {
