@@ -1,26 +1,26 @@
 const gamesContainer = document.getElementById("games");
 const searchInput = document.getElementById("search");
+const searchBtn = document.getElementById("searchBtn");
 
 let allGames = [];
 
-// normalize text for searching
+// normalize text
 function norm(text) {
   return text.toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
-// load zones.json (this is your source of truth)
+// load games from zones.json
 fetch("zones.json")
   .then(res => res.json())
   .then(data => {
     allGames = data;
     renderGames(allGames);
   })
-  .catch(err => {
+  .catch(() => {
     gamesContainer.innerHTML = "Failed to load games.";
-    console.error(err);
   });
 
-// render games
+// render function
 function renderGames(list) {
   gamesContainer.innerHTML = "";
 
@@ -44,8 +44,8 @@ function renderGames(list) {
   });
 }
 
-// search logic (uses ORIGINAL names from zones.json)
-searchInput.addEventListener("input", () => {
+// search logic
+function doSearch() {
   const q = norm(searchInput.value);
 
   if (!q) {
@@ -59,4 +59,12 @@ searchInput.addEventListener("input", () => {
   );
 
   renderGames(filtered);
+}
+
+// button click
+searchBtn.addEventListener("click", doSearch);
+
+// enter key
+searchInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") doSearch();
 });
