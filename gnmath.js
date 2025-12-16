@@ -78,9 +78,10 @@ function doSearch() {
   }
 
  const filtered = allGames.filter(game =>
-  norm(game.originalName || "").includes(q) ||
+  game.originalNameNorm.includes(q) ||
   String(game.id).includes(q)
 );
+
 
 
   renderGames(filtered);
