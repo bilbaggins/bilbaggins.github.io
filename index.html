@@ -2,61 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Homework</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>homework</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     body {
       margin: 0;
-      font-family: system-ui, sans-serif;
-      background: #0b1220;
+      font-family: Arial, sans-serif;
+      background: #0b1020;
       color: white;
     }
 
     header {
       background: #ff3b6b;
-      padding: 14px 20px;
+      padding: 12px 20px;
       font-size: 22px;
       font-weight: bold;
     }
 
     #games {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 15px;
       padding: 20px;
     }
 
-    .game {
-      background: #111a2e;
-      border-radius: 10px;
-      overflow: hidden;
+    .game-card {
+      background: #111633;
+      border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.15s ease;
+      overflow: hidden;
+      transition: transform 0.2s;
     }
 
-    .game:hover {
-      transform: scale(1.04);
+    .game-card:hover {
+      transform: scale(1.05);
     }
 
-    .game img {
+    .game-card img {
       width: 100%;
       height: 120px;
       object-fit: cover;
       display: block;
     }
 
-    .game span {
-      display: block;
-      padding: 8px;
+    .game-title {
+      padding: 6px;
       text-align: center;
       font-size: 14px;
-      opacity: 0.9;
-    }
-
-    #status {
-      padding: 20px;
-      opacity: 0.7;
     }
   </style>
 </head>
@@ -64,49 +57,10 @@
 <body>
   <header>homework</header>
 
-  <div id="status">Loading games…</div>
-  <div id="games"></div>
+  <!-- THIS IS REQUIRED -->
+  <div id="games">Loading games...</div>
 
-  <script>
-    const gamesContainer = document.getElementById("games");
-    const status = document.getElementById("status");
-
-    // CHANGE THIS NUMBER if you have more or fewer games
-    const TOTAL_GAMES = 200;
-
-    let loaded = 0;
-
-    for (let i = 0; i < TOTAL_GAMES; i++) {
-      const img = new Image();
-      img.src = `covers/${i}.png`;
-
-      img.onload = () => {
-        const card = document.createElement("div");
-        card.className = "game";
-
-        card.innerHTML = `
-          <img src="covers/${i}.png" alt="Game ${i}">
-          <span>Game ${i}</span>
-        `;
-
-        card.onclick = () => {
-          const w = window.open(`games/${i}.html`, "_blank");
-          if (w) {
-            w.onload = () => {
-              try {
-                w.document.title = "Teams";
-              } catch {}
-            };
-          }
-        };
-
-        gamesContainer.appendChild(card);
-        loaded++;
-        status.textContent = loaded === TOTAL_GAMES
-          ? ""
-          : `Loaded ${loaded}/${TOTAL_GAMES} games…`;
-      };
-    }
-  </script>
+  <!-- MUST BE AT BOTTOM -->
+  <script src="gnmath.js"></script>
 </body>
 </html>
