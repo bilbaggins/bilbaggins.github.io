@@ -26,11 +26,13 @@ fetch(`${BASE}/zones.json`)
     const games = Array.isArray(data) ? data : data.zones;
 
     allGames = games.map(game => ({
-      id: game.id,
-      name: game.name,
-      cover: game.cover.replace("{COVER_URL}", COVER_URL),
-      path: game.url.replace("{HTML_URL}", HTML_URL)
-    }));
+  id: game.id,
+  originalName: game.name,   // keep old name for search
+  displayName: "teams",      // force visible name
+  cover: game.cover.replace("{COVER_URL}", COVER_URL),
+  path: game.url.replace("{HTML_URL}", HTML_URL)
+}));
+
 
     renderGames(allGames);
   })
