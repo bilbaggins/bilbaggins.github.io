@@ -1,7 +1,5 @@
 {
   "zones":
-[
-  {
     "id": -1,
     "name": "[!] SUGGEST GAMES .gg/D4c9VFYWyU",
     "cover": "{COVER_URL}/dc.png",
@@ -5842,6 +5840,4 @@
     "special": [
       "port"
     ]
-  }
-]
   }
