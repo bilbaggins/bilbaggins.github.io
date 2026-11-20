@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>$GrandV — Local Launcher</title>
+<link rel="icon" type="image/png" href="/branding/grandv-logo.png?v=20261016">
+  <script>
+    // One launcher UI; preserve legacy direct game links and local-launch tokens.
+    const mode = new URLSearchParams(location.search).get('mode');
+    const page = mode === 'story' || mode === 'sandbox' ? 'game.html' : 'launcher.html';
+    location.replace(page + location.search + location.hash);
+  </script>
+</head>
+<body><p><a href="launcher.html">Open the GTA V launcher</a></p></body>
+</html>
